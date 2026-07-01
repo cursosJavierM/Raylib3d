@@ -17,7 +17,7 @@ Software necesario:
 
 Descargar e instalar Visual Studio Code desde:
 
-https://code.visualstudio.com/
+<https://code.visualstudio.com/>
 
 ![alt text](img/vscode.png)
 
@@ -27,13 +27,13 @@ Durante la instalación, se recomienda marcar:
 - Register Code as editor
 - Add "Open with Code"
 
-## Comprobar instalación:
+## Comprobar instalación
 
 1. Para abrir un terminal PowerShell, pulsamos la tecla de Windows (o pulsamos en inicio) y escribimos power.
 
 ![alt text](img/AbrirPowerWindows.png)
 
-2. escribiendo esto en la terminal: 
+1. escribiendo esto en la terminal:
 
 ```powerShell
 code
@@ -41,7 +41,7 @@ code
 
 ![imagen del terminal PowerShell](img/powerShell.png)
 
-3. Si está instalado, se abrirá el programa Visual Studio Code.
+1. Si está instalado, se abrirá el programa Visual Studio Code.
 
 ![alt text](img/VsCodeOpen.png)
 ---
@@ -52,7 +52,7 @@ MSYS2 nos permitirá instalar el compilador de C++.
 
 Descargar desde:
 
-https://github.com/msys2/msys2-installer/releases/download/2026-06-11/msys2-x86_64-20260611.exe
+<https://github.com/msys2/msys2-installer/releases/download/2026-06-11/msys2-x86_64-20260611.exe>
 
 ![alt text](img/MSYS2.png)
 
@@ -72,13 +72,12 @@ Para abrir MSYS2 MINGW64, pulsamos la tecla de Windows (o pulsamos en inicio) y 
 
 ![alt text](img/MSYS2_MINGW64.png)
 
-
 **Ejecutar**:
 
 ![alt text](img/MSYS2_MINGW64_Terminal.png)
 
 ```bash
-pacman -Syu
+pacman -Syu --noconfirm
 ```
 
 Puede pedir confirmaciones, escribimos "y" y pulsamos enter. Puede pedir cerrar la terminal y volver a abrirla.
@@ -100,9 +99,9 @@ hasta que no queden actualizaciones pendientes.
 En la terminal **MSYS2 MINGW64** ejecutar:
 
 ```bash
-pacman -S mingw-w64-x86_64-toolchain
-pacman -S make
-pacman -S mingw-w64-x86_64-raylib
+pacman -S --noconfirm --needed mingw-w64-x86_64-toolchain
+pacman -S --noconfirm --needed make
+pacman -S --noconfirm --needed mingw-w64-x86_64-raylib
 ```
 
 Esto instala:
@@ -114,13 +113,14 @@ Esto instala:
 - Makefile
 - Raylib
 
-## Comprobar instalación :
+## Comprobar instalación
 
 ```bash id="m2"
-g++ --version
-make --version
-pkg-config --modversion raylib
+echo "=== G++ VERSION ===" && g++ --version
+echo -e "\n=== MAKE VERSION ===" && make --version
+echo -e "\n=== RAYLIB VERSION ===" && pkg-config --modversion raylib
 ```
+
 devería aparecer algo como esto:
 
 ![alt text](img/TerminalCorrecto.png)
@@ -129,15 +129,23 @@ devería aparecer algo como esto:
 
 # Paso 5 — Añadir compilador al PATH (opcional pero recomendado)
 
-Añadir al PATH del sistema:
+## Añadir al PATH del sistema
 
 ```text
 C:\msys64\mingw64\bin
 ```
 
-Para comprobar:
+Para ello, abrimos una terminal de **PowerShell** tal y como se muestra a continuación:
 
-Abrir CMD o PowerShell y ejecutar:
+Y pegamos:
+
+```powershell
+[Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::Machine) + ";C:\msys64\mingw64\bin", [EnvironmentVariableTarget]::Machine)
+```
+
+## Para comprobar
+
+Escribimos en PowerShell:
 
 ```bash
 g++ --version
@@ -152,20 +160,22 @@ Abrir **Visual Studio Code**.
 Ir a extensiones e instalar:
 
 ## C/C++
+
 Extensión oficial de Microsoft:
 
 ![alt text](img/cC++.png)
 
-https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools
+<https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools>
 
 Opcional:
 
 ## Error Lens
+
 Para visualizar errores directamente en el editor.
 
 ![alt text](<img/Error Lens.png>)
 
-https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens
+<https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens>
 
 ---
 
@@ -178,14 +188,12 @@ vamos a [configurar](vscode://settings/terminal.integrated.profiles.windows) y p
 Ahí, añadimos al final el siguiente texto:
 
 ```JSON
-"terminal.integrated.profiles.windows": {
-    "MSYS2 MINGW64": {
-        "path": "C:\\msys64\\usr\\bin\\bash.exe",
-        "args": ["--login", "-i"],
-        "env": {
-            "MSYSTEM": "MINGW64",
-            "CHERE_INVOKING": "1"
-        }
+, "MSYS2 MINGW64": {
+    "path": "C:\\msys64\\usr\\bin\\bash.exe",
+    "args": ["--login", "-i"],
+    "env": {
+        "MSYSTEM": "MINGW64",
+        "CHERE_INVOKING": "1"
     }
 }
 ```
@@ -193,11 +201,17 @@ Ahí, añadimos al final el siguiente texto:
 ![alt text](img/añadirRutaTerminal.png)
 
 Modificamos el terminal por defecto:
+
 ```JSON
 "MSYS2 MINGW64"
 ```
 
 ![alt text](img/CambioNombreTerminalDefecto.png)
+
+```JSON
+,
+    "terminal.integrated.defaultProfile.windows": "MSYS2 MINGW64"
+```
 
 # Paso 8 — Compilar
 
@@ -212,6 +226,7 @@ make
 ![alt text](img/CompilarConMake.png)
 
 ## Manualmente
+
 Desde terminal :
 
 ```bash
@@ -221,6 +236,7 @@ g++ src/main.cpp -o game -lraylib -lopengl32 -lgdi32 -lwinmm
 ---
 
 # Paso 9 — Ejecutar
+
 ## Con Make
 
 ```bash
@@ -228,6 +244,7 @@ make run
 ```
 
 ## Manualmente
+
 Ejecutar:
 
 ```bash
@@ -245,9 +262,11 @@ Si todo ha ido bien, aparecerá una ventana con:
 ## Error: g++ no reconocido
 
 Causa:
+
 - PATH incorrecto
 
 Solución:
+
 - Añadir:
 
 ```text
@@ -259,6 +278,7 @@ C:\msys64\ucrt64\bin
 ## Error: raylib.h not found
 
 Causa:
+
 - Raylib no instalado
 
 Comprobar:
