@@ -181,10 +181,10 @@ Para visualizar errores directamente en el editor.
 
 # Paso 7 - Añadir git a VSCode
 
-## descargar e intalasar git 
+## descargar e instalar git 
 https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.1/Git-2.55.0-64-bit.exe
 
-Tras la instalación, cerrar y volver a abrir Visual Studio Code. Nos debe aparecer estas opciones si está correctamente instalado:
+**Tras la instalación**, cerrar y volver a abrir Visual Studio Code. Nos debe aparecer estas opciones si está correctamente instalado:
 
 ![alt text](img/VisualStudioGit.png)
 
