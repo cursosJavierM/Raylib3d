@@ -52,7 +52,7 @@ int main()
         // =========================================================================
         if (IsKeyDown(KEY_A))
         {
-            posicionCubo = Vector3Add(posicionCubo, {1, 0, 0}); // Posicion actual, la desplazamos 1 punto a la izquierda.
+            posicionCubo = Vector3Add(posicionCubo, {1.0f, 0.0f, 0.0f}); // Posicion actual, la desplazamos 1 punto a la izquierda.
         }
         // =========================================================================
         // 2. SECCIÓN DE ACTUALIZACIÓN (Cálculos, físicas y lógica)
