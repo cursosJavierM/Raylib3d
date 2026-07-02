@@ -1,7 +1,8 @@
 #include "raylib.h"
+#include "raymath.h"
 
 // Constantes de Configuración de la Ventana
-#define SCREEN_WIDTH 800  // Ancho de la ventana en píxeles
+#define SCREEN_WIDTH 900  // Ancho de la ventana en píxeles
 #define SCREEN_HEIGHT 600 // Alto de la ventana en píxeles
 #define MAX_FPS 60        // Máximo de fotogramas por segundo
 
@@ -38,12 +39,21 @@ int main()
     // Establece el objetivo de fotogramas por segundo de la ventana
     SetTargetFPS(MAX_FPS);
 
+    // Objetos del enterno
+    Vector3 posicionCubo = CUBE_POSITION;
+
+    // TIPO_VARIABLE NOMBRE;
+    // TIPO_VARIABLE NOMBRE = {1,2,3};
+
     while (!WindowShouldClose())
     {
         // =========================================================================
         // 1. SECCIÓN DE ENTRADA (Capturar lo que hace el usuario)
         // =========================================================================
-
+        if (IsKeyDown(KEY_A))
+        {
+            posicionCubo = Vector3Add(posicionCubo, {1, 0, 0}); // Posicion actual, la desplazamos 1 punto a la izquierda.
+        }
         // =========================================================================
         // 2. SECCIÓN DE ACTUALIZACIÓN (Cálculos, físicas y lógica)
         // =========================================================================
@@ -58,7 +68,9 @@ int main()
         // Inicio del espacio de dibujo 3D
         BeginMode3D(camera);
         // Dibuja el cubo utilizando las constantes definidas
-        DrawCube(CUBE_POSITION, CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, RED);
+        DrawCube(posicionCubo, CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, RED);
+
+        // X, Y, Z ()
 
         // Dibuja la cuadrícula de guía en el suelo
         DrawGrid(GRID_SLICES, GRID_SPACING);
