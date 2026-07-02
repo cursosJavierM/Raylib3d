@@ -331,3 +331,10 @@ Al finalizar el curso, el alumnado será capaz de:
 
 # Contactar
 Podeis contactar a través del email: cursosjaviermorenof@gmail.com
+
+---
+
+# Enlaces de interes:
+
+- Aprender comandos de Git mediante un videojuego interactivo https://ohmygit.org/
+- Recopilatorio de modulos (Archivos) incluidos en Raylib https://www.raylib.com/cheatsheet/cheatsheet.html
