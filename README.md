@@ -1,14 +1,13 @@
 # Programación del curso (12h) — Desarrollo de videojuego 3D con Raylib
 
-Es necesario realizar los pasos previso indicados en [como instalar el entordo de desarrollo](/documentos/como_instalar_el_entordo_de_desarrollo.md)
-
 ## Introducción
 
 Para adaptarnos a equipos con recursos limitados, el curso se desarrollará usando **Raylib**, una librería ligera orientada al aprendizaje de programación gráfica y desarrollo de videojuegos.
 
 Durante el curso, el alumnado desarrollará un **mini juego sandbox 3D** desde cero, aplicando conceptos de diseño 3D, programación, lógica de juego y testing.
 
-### Proyecto final
+## Proyecto final
+
 Construcción de un mundo 3D interactivo donde el jugador podrá:
 
 - Moverse libremente por el escenario  
@@ -20,7 +19,7 @@ Construcción de un mundo 3D interactivo donde el jugador podrá:
 
 ---
 
-# Distribución temporal
+## Distribución temporal
 
 - **Duración total:** 12 horas  
 - **Número de sesiones:** 8  
@@ -35,111 +34,41 @@ Distribución por módulos:
 
 ---
 
-# Sesión 1 — Configuración y primer mundo 3D
+## Sesiones
 
-## Objetivos
-- Configurar el entorno de desarrollo
-- Comprender el game loop (el bucle del juego)
-- Dibujar primeros objetos 3D
+Modulo 1 - Conceptos básicos:
 
-## Contenidos
-- Instalación y configuración del entorno de desarrollo
-- Concepto de ventana y renderizado
-- Bucle principal del juego
-- Cámara 3D básica
+- [Sesión 1 — Configuración y primer mundo 3D](/documentos/sesion01.md)
+- [Sesión 2 — Espacio 3D y entrada de teclado](/documentos/sesion02.md)
 
-## Práctica
-Creación de una escena inicial con:
+Modulo 2 - Organización de las entidades del juego:
 
-- Suelo
-- Cubos
-- Esferas
-- Cámara libre
+- [Sesión 3 — Objeto clase y funciones](/documentos/sesion03.md)
+- 4
+- 5
 
-## Conceptos técnicos
-```cpp
-    
-    InitWindow()    // Define la pantalla principal del juego
-    BeginDrawing()  // Empezar a dibujar en la ventana
-    BeginMode3D()   // Dibuja la escena 3D
-    DrawCube()      // Dibuja un cubo
-```
+Modulo 3:
 
----
+- 6
+- 7
 
-# Sesión 2 — Espacio 3D y física básica
+Modulo 4:
 
-## Objetivos
-- Comprender coordenadas 3D
-- Introducir movimiento y gravedad
-
-## Contenidos
-- Ejes X, Y y Z
-- Uso de `Vector3`
-- Posición y movimiento
-- Colisiones simples
-
-## Práctica
-Construcción de:
-
-- Obstáculos
-- Plataformas
-- Rampas
-
-Implementación de:
-
-- Movimiento del jugador
-- Gravedad
-- Salto
-
-## Conceptos técnicos
-```cpp
-velocityY -= gravity * dt;
-player.y += velocityY * dt;
-```
-### Tipos de datos
-- [Tipos de datos en C++](https://learn.microsoft.com/en-us/cpp/cpp/cpp-type-system-modern-cpp?view=msvc-180)
-- [Tipo Booleano (vedadero|Falso)](https://learn.microsoft.com/es-es/dotnet/csharp/language-reference/operators/?authuser=0)
-### Operadores
-- [Operadores Aritmeticos](https://learn.microsoft.com/es-es/dotnet/csharp/language-reference/operators/arithmetic-operators)
-- [Operadores de comparación](https://learn.microsoft.com/es-es/dotnet/csharp/language-reference/operators/comparison-operators)
-- [Operadores booleanos](https://learn.microsoft.com/es-es/dotnet/csharp/language-reference/operators/boolean-logical-operators)
----
-
-# Sesión 3 — Eventos e interacciones
-
-## Objetivos
-- Introducir lógica basada en eventos
-- Crear interacciones en el mundo
-
-## Contenidos
-- Entrada de teclado
-- Eventos y acciones
-- Activadores
-
-## Práctica
-Crear:
-
-- Botones
-- Placas de presión
-- Puertas automáticas
-
-## Conceptos técnicos
-```cpp
-if (IsKeyPressed(KEY_E))
-```
+- 8
 
 ---
 
 # Sesión 4 — Booleanos y variables
 
 ## Objetivos
+
 - Comprender lógica booleana
 - Almacenar información del juego
 
 ## Contenidos
 
 ### Booleanos
+
 Representación de estados:
 
 - Verdadero
@@ -275,16 +204,19 @@ DrawText()
 # Sesión 8 — Testing y proyecto final
 
 ## Objetivos
+
 - Aprender a detectar errores
 - Corregir bugs
 - Presentar el proyecto
 
 ## Contenidos
+
 - Qué es un bug
 - Técnicas básicas de testing
 - Validación de mecánicas
 
 ## Práctica
+
 Testing cruzado entre compañeros:
 
 - Pruebas de colisiones
@@ -292,6 +224,7 @@ Testing cruzado entre compañeros:
 - Detección de errores visuales
 
 ## Proyecto final
+
 Cada alumno presentará su juego y añadirá al menos una mecánica propia:
 
 - Doble salto
@@ -302,7 +235,7 @@ Cada alumno presentará su juego y añadirá al menos una mecánica propia:
 
 ---
 
-# Metodología
+## Metodología
 
 Cada sesión seguirá la siguiente estructura:
 
@@ -315,7 +248,7 @@ Se priorizará una metodología **práctica y progresiva**, donde cada sesión a
 
 ---
 
-# Resultados de aprendizaje
+## Resultados de aprendizaje
 
 Al finalizar el curso, el alumnado será capaz de:
 
@@ -328,13 +261,13 @@ Al finalizar el curso, el alumnado será capaz de:
 - Identificar y corregir errores  
 - Desarrollar un videojuego 3D sencillo con Raylib  
 
+## Contactar
 
-# Contactar
-Podeis contactar a través del email: cursosjaviermorenof@gmail.com
+Podeis contactar a través del email: <cursosjaviermorenof@gmail.com>
 
 ---
 
-# Enlaces de interes:
+## Enlaces de interes:
 
 - Aprender comandos de Git mediante un videojuego interactivo https://ohmygit.org/
 - Recopilatorio de modulos (Archivos) incluidos en Raylib https://www.raylib.com/cheatsheet/cheatsheet.html

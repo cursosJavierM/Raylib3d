@@ -1,7 +1,7 @@
 # ===== CONFIG =====
 CXX = g++
 TARGET = bin/game.exe
-SRC = src/main.cpp
+SRC = src/*.cpp
 
 CXXFLAGS = -std=c++17 -Wall -g
 LDFLAGS = -lraylib -lopengl32 -lgdi32 -lwinmm
