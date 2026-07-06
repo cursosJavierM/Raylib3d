@@ -52,8 +52,28 @@ int main()
         // =========================================================================
         if (IsKeyDown(KEY_A))
         {
-            posicionCubo = Vector3Add(posicionCubo, {1.0f, 0.0f, 0.0f}); // Posicion actual, la desplazamos 1 punto a la izquierda.
+            posicionCubo = Vector3Add(posicionCubo, {-1.0f, 0.0f, 0.0f}); // Posicion actual, la desplazamos 1 punto a la izquierda.
         }
+        if (IsKeyDown(KEY_D))
+        {
+            posicionCubo = Vector3Add(posicionCubo, {1.0f, 0.0f, 0.0f}); // Posicion actual, la desplazamos 1 punto a la derecha.
+        }
+
+        if (IsKeyDown(KEY_W))
+        {
+            posicionCubo = Vector3Add(posicionCubo, {0.0f, 0.0f, -1.0f}); // Posicion actual, la desplazamos 1 punto hacia arriba.
+        }
+
+        if (IsKeyDown(KEY_S))
+        {
+            posicionCubo = Vector3Add(posicionCubo, {0.0f, 0.0f, 1.0f}); // Posicion actual, la desplazamos 1 punto hacia abajo.
+        }
+
+        if (IsKeyPressed(KEY_SPACE))
+        {
+            posicionCubo = Vector3Add(posicionCubo, {0.0f, 1.0f, 0.0f}); // Posicion actual, la desplazamos 1 punto hacia arriba.
+        }
+
         // =========================================================================
         // 2. SECCIÓN DE ACTUALIZACIÓN (Cálculos, físicas y lógica)
         // =========================================================================
