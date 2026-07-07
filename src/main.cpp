@@ -13,10 +13,10 @@
 #define INITIAL_CAMERA_FOVY 45.0f                           // Amplitud del lente (el ángulo de apertura vertical)
 
 // Constantes del Entorno y Objetos
-#define GRID_SLICES 20                            // Número de divisiones en la cuadrícula
-#define GRID_SPACING 1.0f                         // Espaciado entre las divisiones de la cuadrícula
-#define CUBE_POSITION (Vector3){0.0f, 1.0f, 0.0f} // Posición del cubo central en el mundo
-#define CUBE_SIZE 1.0f                            // Tamaño del cubo (Ancho, Alto, Largo)
+#define GRID_SLICES 20                                     // Número de divisiones en la cuadrícula
+#define GRID_SPACING 1.0f                                  // Espaciado entre las divisiones de la cuadrícula
+#define CUBE_POSITION (Vector3){0.0f, CUBE_SIZE / 2, 0.0f} // Posición del cubo central en el mundo
+#define CUBE_SIZE 1.0f                                     // Tamaño del cubo (Ancho, Alto, Largo)
 
 // Constantes de la Interfaz (UI)
 #define TEXT_POS_X 10     // Posición X del texto en la pantalla
@@ -41,6 +41,9 @@ int main()
 
     // Objetos del enterno
     Vector3 posicionCubo = CUBE_POSITION;
+    float gravedad = -0.009f;
+    float suavidadCamara = 8.0f;
+    float velocidadPersonaje = 4.0f; // 4 cuadrados por segundo
 
     // TIPO_VARIABLE NOMBRE;
     // TIPO_VARIABLE NOMBRE = {1,2,3};
@@ -52,11 +55,14 @@ int main()
         // =========================================================================
         if (IsKeyDown(KEY_A))
         {
-            posicionCubo = Vector3Add(posicionCubo, {-1.0f, 0.0f, 0.0f}); // Posicion actual, la desplazamos 1 punto a la izquierda.
+            // posicionCubo = Vector3Add(posicionCubo, {-1.0f, 0.0f, 0.0f}); // Posicion actual, la desplazamos 1 punto a la izquierda.
+            posicionCubo.x = posicionCubo.x + -1.0f * velocidadPersonaje * GetFrameTime();
+            // posicionCubo.x += velocidadPersonaje * GetFrameTime();
         }
         if (IsKeyDown(KEY_D))
         {
-            posicionCubo = Vector3Add(posicionCubo, {1.0f, 0.0f, 0.0f}); // Posicion actual, la desplazamos 1 punto a la derecha.
+            // posicionCubo = Vector3Add(posicionCubo, {1.0f, 0.0f, 0.0f}); // Posicion actual, la desplazamos 1 punto a la derecha.
+            posicionCubo.x = posicionCubo.x + 1.0f * velocidadPersonaje * GetFrameTime();
         }
 
         if (IsKeyDown(KEY_W))
@@ -77,6 +83,26 @@ int main()
         // =========================================================================
         // 2. SECCIÓN DE ACTUALIZACIÓN (Cálculos, físicas y lógica)
         // =========================================================================
+
+        if (posicionCubo.y > CUBE_SIZE / 2)
+        {
+            posicionCubo.y = posicionCubo.y + gravedad;
+            // equivalente a escribir -> posicionCubo.y += gravedad;
+        }
+        else
+        {
+            posicionCubo.y = CUBE_SIZE / 2;
+        }
+
+        // camera.target = posicionCubo;
+        camera.target = Vector3Lerp(camera.target, posicionCubo, suavidadCamara * GetFrameTime());
+        // camera.position = Vector3Add(posicionCubo, INITIAL_CAMERA_POSITION);
+
+        camera.position = Vector3Lerp(camera.position,
+                                      Vector3Add(posicionCubo, INITIAL_CAMERA_POSITION),
+                                      suavidadCamara * GetFrameTime());
+
+        // Vector3Lerp(camera.position, posicionIdealCamara, suavizadoCamara * GetFrameTime());
 
         // =========================================================================
         // 3. SECCIÓN DE RENDERIZADO (Dibujar todo en pantalla)
@@ -106,4 +132,16 @@ int main()
 
     // Cierra la ventana y libera los recursos
     CloseWindow();
+}
+
+void actualizarPosicionCamara(Vector3 posicionObjeto, Camera3D &camera)
+{
+    Vector3 camaraDistancia = INITIAL_CAMERA_POSITION;
+    float suavizadoCamara = 8.0f;
+
+    Vector3 posicionIdealCamara = Vector3Add(posicionObjeto, camaraDistancia);
+    Vector3 objetivoIdealCamara = posicionObjeto;
+
+    camera.position = Vector3Lerp(camera.position, posicionIdealCamara, suavizadoCamara * GetFrameTime());
+    camera.target = Vector3Lerp(camera.target, objetivoIdealCamara, suavizadoCamara * GetFrameTime());
 }
