@@ -1,5 +1,6 @@
 #include "raylib.h"
 #include "raymath.h"
+#include "Jugador.hpp"
 
 // Constantes de Configuración de la Ventana
 #define SCREEN_WIDTH 900  // Ancho de la ventana en píxeles
@@ -36,6 +37,8 @@ int main()
     camera.fovy = INITIAL_CAMERA_FOVY;
     camera.projection = CAMERA_PERSPECTIVE; // Perspectiva real: objetos lejanos se ven más pequeños
 
+    Jugador jugador1;
+
     // Establece el objetivo de fotogramas por segundo de la ventana
     SetTargetFPS(MAX_FPS);
 
@@ -55,24 +58,21 @@ int main()
         // =========================================================================
         if (IsKeyDown(KEY_A))
         {
-            // posicionCubo = Vector3Add(posicionCubo, {-1.0f, 0.0f, 0.0f}); // Posicion actual, la desplazamos 1 punto a la izquierda.
             posicionCubo.x = posicionCubo.x + -1.0f * velocidadPersonaje * GetFrameTime();
-            // posicionCubo.x += velocidadPersonaje * GetFrameTime();
         }
         if (IsKeyDown(KEY_D))
         {
-            // posicionCubo = Vector3Add(posicionCubo, {1.0f, 0.0f, 0.0f}); // Posicion actual, la desplazamos 1 punto a la derecha.
             posicionCubo.x = posicionCubo.x + 1.0f * velocidadPersonaje * GetFrameTime();
         }
 
         if (IsKeyDown(KEY_W))
         {
-            posicionCubo = Vector3Add(posicionCubo, {0.0f, 0.0f, -1.0f}); // Posicion actual, la desplazamos 1 punto hacia arriba.
+            posicionCubo.z = posicionCubo.z + -1.0f * velocidadPersonaje * GetFrameTime(); // Posicion actual, la desplazamos 1 punto hacia arriba.
         }
 
         if (IsKeyDown(KEY_S))
         {
-            posicionCubo = Vector3Add(posicionCubo, {0.0f, 0.0f, 1.0f}); // Posicion actual, la desplazamos 1 punto hacia abajo.
+            posicionCubo.z = posicionCubo.z + 1.0f * velocidadPersonaje * GetFrameTime(); // Posicion actual, la desplazamos 1 punto hacia abajo.
         }
 
         if (IsKeyPressed(KEY_SPACE))
