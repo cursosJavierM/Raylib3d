@@ -52,6 +52,9 @@ int main()
 
     // Objetos del entorno
     Vector3 posicionCubo = CUBE_POSITION;
+    float gravedad = -0.009f;
+    float suavidadCamara = 8.0f;
+    float velocidadPersonaje = 4.0f; // 4 cuadrados por segundo
 
     // TIPO_VARIABLE NOMBRE;
     // TIPO_VARIABLE NOMBRE = {1,2,3};
