@@ -179,20 +179,29 @@ Aquí se usa `(Vector3)` para indicar al compilador (`g++`) que `{1,0,0}` debe t
 
 Esto junto a la modificación del dibujado del cubo, debería permitir mover el cubo hacia la izquierda.
 
-Podemos repetir este paso, con el resto de teclas:
+Podemos repetir este paso, con el resto de teclas, **quedando finalmente como**:
 
 ```cpp
-if (IsKeyPressed(KEY_W))
+if (IsKeyDown(KEY_W))
     {
-        posicionCubo = Vector3Add(posicionCubo, (Vector3){0, 1, 0});
+        posicionCubo = Vector3Add(posicionCubo, (Vector3){0, 0, -1});
     }
-if (IsKeyPressed(KEY_S))
-    {
-        posicionCubo = Vector3Add(posicionCubo, (Vector3){0, -1, 0});
-    }
-if (IsKeyPressed(KEY_D))
+if (IsKeyDown(KEY_A))
     {
         posicionCubo = Vector3Add(posicionCubo, (Vector3){-1, 0, 0});
+    }
+if (IsKeyDown(KEY_S))
+    {
+        posicionCubo = Vector3Add(posicionCubo, (Vector3){0, 0, 1});
+    }
+if (IsKeyDown(KEY_D))
+    {
+        posicionCubo = Vector3Add(posicionCubo, (Vector3){1, 0, 0});
+    }
+    
+if (IsKeyDown(KEY_SPACE))
+    {
+        posicionCubo = Vector3Add(posicionCubo, (Vector3){0, 1, 0});
     }
 ```
 

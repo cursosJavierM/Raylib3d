@@ -2,18 +2,16 @@
 
 ## Requisitos previos
 
-Antes de comenzar, necesitaremos instalar las herramientas necesarias para programar videojuegos en C++ usando Raylib.
-
-Software necesario:
+Antes de comenzar a desarrollar nuestro videojuego, necesitaremos instalar las herramientas necesarias para programar videojuegos en C++ usando Raylib. Mediante esta guía conseguiremos instalar:
 
 - Visual Studio Code
-- Compilador C/C++ (MinGW mediante MSYS2)
+- Compilador C/C++ (MinGW mediante MSYS2 MINGW64)
 - Raylib
 - Extensiones de C++ para VS Code
 
 ---
 
-# Paso 1 — Instalar Visual Studio Code
+## Paso 1 — Instalar Visual Studio Code
 
 Descargar e instalar Visual Studio Code desde:
 
@@ -27,7 +25,7 @@ Durante la instalación, se recomienda marcar:
 - Register Code as editor
 - Add "Open with Code"
 
-## Comprobar instalación
+### Comprobar instalación
 
 1. Para abrir un terminal PowerShell, pulsamos la tecla de Windows (o pulsamos en inicio) o en la barra de busquedad inferior y escribimos "power".
 
@@ -44,9 +42,10 @@ code
 3. Si está instalado, se abrirá el programa **Visual Studio Code**.
 
 ![alt text](img/VsCodeOpen.png)
+
 ---
 
-# Paso 2 — Instalar MSYS2
+## Paso 2 — Instalar MSYS2
 
 MSYS2 nos permitirá instalar el compilador de C++.
 
@@ -62,11 +61,11 @@ C:\msys64
 
 ---
 
-# Paso 3 — Actualizar MSYS2 MINGW64
+## Paso 3 — Actualizar MSYS2 MINGW64
 
-## Abrir:
+### Abrir
 
-Para abrir **MSYS2 MINGW64**, pulsamos la tecla de Windows (o pulsamos en inicio, o en la barra de busqueda inferior) y escribimos "MSYS2 MINGW64". 
+Para abrir **MSYS2 MINGW64**, pulsamos la tecla de Windows (o pulsamos en inicio, o en la barra de busqueda inferior) y escribimos "MSYS2 MINGW64".
 
 **NOTA**: Es importante fijarse en abrir la aplicación indicada, no otras con nombres similares.
 
@@ -74,11 +73,12 @@ Para abrir **MSYS2 MINGW64**, pulsamos la tecla de Windows (o pulsamos en inicio
 
 **NOTA**: Para poder pegar el texto en este terminal, usamos click derecho y seleccionamos "paste".
 
-## Ejecutar:
+### Ejecutar
 
 ```bash
 pacman -Syu --noconfirm
 ```
+
 ![alt text](img/MSYS2_MINGW64_Terminal.png)
 
 Ejecutar nuevamente, hasta que no queden actualizaciones pendientes.
@@ -87,9 +87,10 @@ Ejecutar nuevamente, hasta que no queden actualizaciones pendientes.
 
 ---
 
-# Paso 4 — Instalar compilador C++, make y Raylib
+## Paso 4 — Instalar compilador C++, make y Raylib
 
-## Instalar
+### Instalar
+
 En la terminal **MSYS2 MINGW64** ejecutar:
 
 ```bash
@@ -109,7 +110,7 @@ Esto instala:
 - Makefile
 - Raylib
 
-## Comprobar instalación
+### Comprobar instalación
 
 ```bash id="m2"
 echo -e "\n=== G++ VERSION ===" && g++ --version
@@ -123,15 +124,11 @@ devería aparecer algo como esto:
 
 ---
 
-# Paso 5 — Añadir compilador al PATH de Windows
+## Paso 5 — Añadir compilador al PATH de Windows
 
-## Añadir al PATH del sistema
+### Añadir al PATH del sistema
 
-```text
-C:\msys64\mingw64\bin
-```
-
-Para ello, abrimos una terminal de **PowerShell** tal y como se indicó anteriormente:
+Para ello, abrimos una terminal de **PowerShell** tal y como se indicó anteriormente, **en modo administrador**:
 
 ![alt text](img/AbrirPowerWindows.png)
 
@@ -143,7 +140,7 @@ Y pegamos y pulsamos enter:
 
 ![alt text](img/PowerShellPath.png)
 
-## Para comprobar que funciona correctamente
+### Para comprobar que funciona correctamente
 
 Escribimos en **PowerShell**:
 
@@ -153,13 +150,13 @@ g++ --version
 
 ---
 
-# Paso 6 — Instalar extensiones de VS Code
+## Paso 6 — Instalar extensiones de VS Code
 
 Abrir **Visual Studio Code**.
 
 Ir a extensiones e instalar:
 
-## C/C++
+### C/C++
 
 Extensión oficial de Microsoft:
 
@@ -169,7 +166,7 @@ Extensión oficial de Microsoft:
 
 Opcional:
 
-## Error Lens
+### Error Lens
 
 Para visualizar errores directamente en el editor.
 
@@ -179,20 +176,21 @@ Para visualizar errores directamente en el editor.
 
 ---
 
-# Paso 7 - Añadir git a VSCode
+## Paso 7 - Añadir git a VSCode
 
-## descargar e instalar git 
-https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.1/Git-2.55.0-64-bit.exe
+### descargar e instalar git
+
+<https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.1/Git-2.55.0-64-bit.exe>
 
 **Tras la instalación**, cerrar y volver a abrir Visual Studio Code. Nos debe aparecer estas opciones si está correctamente instalado:
 
 ![alt text](img/VisualStudioGit.png)
 
-## Registrarse en Github
+### Registrarse en Github
 
-https://docs.github.com/es/get-started/start-your-journey/creating-an-account-on-github#signing-up-for-a-new-personal-account
+<https://docs.github.com/es/get-started/start-your-journey/creating-an-account-on-github#signing-up-for-a-new-personal-account>
 
-## Hacer un fork del proyecto
+### Hacer un fork del proyecto
 
 Esto significa crear una copia que depende del proyecto principal (En este caso) sobre la que podemos trabajar por nuestra cuenta.
 
@@ -202,7 +200,7 @@ Esto significa crear una copia que depende del proyecto principal (En este caso)
 2. Completamos la creación en nuestra copia del repositorio en nuestra cuenta de github.
 ![alt text](img/fork/crearFork.png)
 
-## Clonar el repositorio en VSCode
+### Clonar el repositorio en VSCode
 
 En Github, en nuestro nuevo fork del repositorio, copiamos la url:
 ![alt text](img/fork/copiarUrlFork.png)
@@ -213,7 +211,7 @@ vamos a **Visual Studio Code** y pulsamos en la opción de clonar
 
 ---
 
-# Paso 8 - Configurar para usar la terminal correcta en VSCode
+## Paso 8 - Configurar para usar la terminal correcta en VSCode
 
 vamos a [configurar](vscode://settings/terminal.integrated.profiles.windows) y pulsamos en el botón que indica la imagen:
 
@@ -234,10 +232,12 @@ Ahí, añadimos al final el siguiente texto:
 
 ![alt text](img/añadirRutaTerminal.png)
 
-## Modificamos el terminal por defecto:
+### Modificamos el terminal por defecto
+
 Podemos modificar que terminal por defecto usará Visual Studio Code. Tenemos dos alternativas para configurarlo, de forma visual o manual.
 
-### De forma Visual
+#### De forma Visual
+
 Abrimos la terminal, si no está ya abierta (Atajo: **Ctrl + ñ**)
 ![alt text](img/openTerminal.png)
 
@@ -249,10 +249,7 @@ Elegimos "*MSYS2 MINGW64*":
 
 ![alt text](img/selecTerminalDefault.png)
 
-### De forma Manual
-```JSON
-"MSYS2 MINGW64"
-```
+#### De forma Manual
 
 ![alt text](img/CambioNombreTerminalDefecto.png)
 
@@ -263,9 +260,9 @@ Elegimos "*MSYS2 MINGW64*":
 
 ---
 
-# Paso 9 — Compilar
+## Paso 9 — Compilar
 
-## Con Make
+### Con Make
 
 Para compilar directamente usando Make, en el terminar de **Visual Studio Code** (en la ruta del proyecto) escribimos:
 
@@ -277,7 +274,7 @@ make
 
 ![alt text](img/CompilarConMake_Resultado.png)
 
-## Manualmente
+### Manualmente
 
 Desde terminal :
 
@@ -289,32 +286,37 @@ g++ src/main.cpp -o bin/game -lraylib -lopengl32 -lgdi32 -lwinmm
 
 ---
 
-# Paso 10 — Ejecutar
+## Paso 10 — Ejecutar
+
 Para ejecutar directamente usando Make, en el terminar de **Visual Studio Code** (en la ruta del proyecto) escribimos:
-## Con Make
+
+### Con Make
 
 ```bash
 make run
 ```
+
 ![alt text](img/EjecutarConMake.png)
 
 ![alt text](img/Run_Resultado.png)
-## Manualmente
+
+### Manualmente
 
 Ejecutar:
 
 ```bash
 ./bin/game.exe
 ```
+
 ![alt text](img/EjecutarManualmente.png)
 
 Si todo ha ido bien, aparecerá una ventana con:
 
 ---
 
-# Problemas comunes
+## Problemas comunes
 
-## Error: g++ no reconocido
+### Error: g++ no reconocido
 
 Causa:
 
@@ -330,7 +332,7 @@ C:\msys64\ucrt64\bin
 
 ---
 
-## Error: raylib.h not found
+### Error: raylib.h not found
 
 Causa:
 
@@ -344,7 +346,7 @@ pacman -S mingw-w64-ucrt-x86_64-raylib
 
 ---
 
-## Error al enlazar librerías
+### Error al enlazar librerías
 
 Comprobar flags:
 
@@ -352,14 +354,15 @@ Comprobar flags:
 -lraylib -lopengl32 -lgdi32 -lwinmm
 ```
 
-## Error al ejecutar el .exe
+### Error al ejecutar el .exe
+
 "*No se encuentra la libreria Raylib*"
 
 Seguramente nos hemos añadido el PATH.
 
 ---
 
-# Entorno listo
+## Entorno listo
 
 Si todo funciona correctamente, ya se puede comenzar a desarrollar videojuegos 2D y 3D con:
 
@@ -367,9 +370,9 @@ Si todo funciona correctamente, ya se puede comenzar a desarrollar videojuegos 2
 - Raylib
 - Visual Studio Code
 
-# Regla importante del curso
+## Regla importante del curso
 
 Durante este curso:
 
 - Usaremos siempre la terminal de Visual Studio Code (MINGW64)
-- Todo el código se compila y ejecuta con make
+- Todo el código se compila y ejecuta con 'make run'
