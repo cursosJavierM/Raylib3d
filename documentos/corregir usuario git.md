@@ -15,9 +15,9 @@ git config user.name "TuNombreDeUsuario"
 git config user.email "tucorreo@ejemplo.com"
 ```
 
-## OPCIONAL:
+## OPCIONAL
 
-Si no funcionara, podemos borrar los credenciales de windows buscando git.
+Si no funcionara, podemos borrar los credenciales de windows buscando git. Y aplicar después [Abrir terminal](#abrir-terminal)
 
 ``` windows
 Panel de control\Cuentas de usuario\Administrador de credenciales
