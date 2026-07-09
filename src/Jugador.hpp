@@ -11,12 +11,15 @@ private:
     Color color;
     float fuerzaSalto;
     Vector3 posicion;
+    float velocidadY;
+    float size;
 
 public:
     Jugador(float velocidadInicial,
             Color colorInicial,
             float fuerzaSaltoIncial,
-            Vector3 posicionInicial);
+            Vector3 posicionInicial,
+            float sizeInicial);
 
     float getVelocidad()
     {
@@ -25,11 +28,12 @@ public:
     Color getColor() { return color; }
     float getFuerzaSalto() { return fuerzaSalto; }
     Vector3 getPosicion() { return posicion; }
+    float getVelocidadY() { return velocidadY; }
+    float getSize() { return size; }
 
-    void setPosicion(Vector3 nuevaPosicion)
-    {
-        posicion = nuevaPosicion;
-    }
+    void setPosicion(Vector3 nuevaPosicion) { posicion = nuevaPosicion; }
+
+    void setVelocidadY(float nuevaVelocidadY) { velocidadY = nuevaVelocidadY; }
 
     void saltar();
 };
