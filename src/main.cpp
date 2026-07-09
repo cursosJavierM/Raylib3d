@@ -76,7 +76,6 @@ int main()
 
     while (!WindowShouldClose())
     {
-        float deltaTime = GetFrameTime(); // Guardamos el tiempo del frame para mayor claridad
         // =========================================================================
         // 1. SECCIÓN DE ENTRADA (Capturar lo que hace el usuario)
         // =========================================================================
