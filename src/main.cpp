@@ -37,7 +37,7 @@ int main()
     camera.fovy = INITIAL_CAMERA_FOVY;
     camera.projection = CAMERA_PERSPECTIVE; // Perspectiva real: objetos lejanos se ven más pequeños
 
-    Jugador jugador1;
+    Jugador jugador1 = Jugador(4.0f, RED, 8.0f, CUBE_POSITION);
 
     // Establece el objetivo de fotogramas por segundo de la ventana
     SetTargetFPS(MAX_FPS);
@@ -46,7 +46,6 @@ int main()
     Vector3 posicionCubo = CUBE_POSITION;
     float gravedad = -0.009f;
     float suavidadCamara = 8.0f;
-    float velocidadPersonaje = 4.0f; // 4 cuadrados por segundo
 
     // TIPO_VARIABLE NOMBRE;
     // TIPO_VARIABLE NOMBRE = {1,2,3};
@@ -58,21 +57,25 @@ int main()
         // =========================================================================
         if (IsKeyDown(KEY_A))
         {
-            posicionCubo.x = posicionCubo.x + -1.0f * velocidadPersonaje * GetFrameTime();
+            Vector3 nuevaPosicion = jugador1.getPosicion();
+            nuevaPosicion.x = nuevaPosicion.x + -1.0f * jugador1.getVelocidad() * GetFrameTime();
+            jugador1.setPosicion(nuevaPosicion);
+            
+            // posicionCubo.x = posicionCubo.x + -1.0f * jugador1.getVelocidad() * GetFrameTime();
         }
         if (IsKeyDown(KEY_D))
         {
-            posicionCubo.x = posicionCubo.x + 1.0f * velocidadPersonaje * GetFrameTime();
+            posicionCubo.x = posicionCubo.x + 1.0f * jugador1.getVelocidad() * GetFrameTime();
         }
 
         if (IsKeyDown(KEY_W))
         {
-            posicionCubo.z = posicionCubo.z + -1.0f * velocidadPersonaje * GetFrameTime(); // Posicion actual, la desplazamos 1 punto hacia arriba.
+            posicionCubo.z = posicionCubo.z + -1.0f * jugador1.getVelocidad() * GetFrameTime(); // Posicion actual, la desplazamos 1 punto hacia arriba.
         }
 
         if (IsKeyDown(KEY_S))
         {
-            posicionCubo.z = posicionCubo.z + 1.0f * velocidadPersonaje * GetFrameTime(); // Posicion actual, la desplazamos 1 punto hacia abajo.
+            posicionCubo.z = posicionCubo.z + 1.0f * jugador1.getVelocidad() * GetFrameTime(); // Posicion actual, la desplazamos 1 punto hacia abajo.
         }
 
         if (IsKeyPressed(KEY_SPACE))
@@ -114,7 +117,7 @@ int main()
         // Inicio del espacio de dibujo 3D
         BeginMode3D(camera);
         // Dibuja el cubo utilizando las constantes definidas
-        DrawCube(posicionCubo, CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, RED);
+        DrawCube(posicionCubo, CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, jugador1.getColor());
 
         // X, Y, Z ()
 
