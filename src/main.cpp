@@ -1,6 +1,6 @@
 #include "raylib.h"
 #include "raymath.h"
-#include <iostream>
+#include "Jugador.hpp"
 
 // Constantes de Configuración de la Ventana
 #define SCREEN_WIDTH 900  // Ancho de la ventana en píxeles
@@ -40,6 +40,8 @@ int main()
     camera.fovy = INITIAL_CAMERA_FOVY;
     camera.projection = CAMERA_PERSPECTIVE; // Perspectiva real: objetos lejanos se ven más pequeños
 
+    Jugador jugador1 = Jugador(4.0f, RED, 8.0f, CUBE_POSITION);
+
     // Establece el objetivo de fotogramas por segundo de la ventana
     SetTargetFPS(MAX_FPS);
 
@@ -54,7 +56,6 @@ int main()
     Vector3 posicionCubo = CUBE_POSITION;
     float gravedad = -0.009f;
     float suavidadCamara = 8.0f;
-    float velocidadPersonaje = 4.0f; // 4 cuadrados por segundo
 
     // TIPO_VARIABLE NOMBRE;
     // TIPO_VARIABLE NOMBRE = {1,2,3};
@@ -65,30 +66,35 @@ int main()
         // =========================================================================
         // 1. SECCIÓN DE ENTRADA (Capturar lo que hace el usuario)
         // =========================================================================
+        Vector3 nuevaPosicion = jugador1.getPosicion();
+
         if (IsKeyDown(KEY_A))
         {
-            posicionCubo.x += -1.0f * velocidad * deltaTime; // Posicion actual, la desplazamos 1 punto a la izquierda.
+            nuevaPosicion.x = nuevaPosicion.x + -1.0f * jugador1.getVelocidad() * GetFrameTime();
+            // posicionCubo.x = posicionCubo.x + -1.0f * jugador1.getVelocidad() * GetFrameTime();
         }
         if (IsKeyDown(KEY_D))
         {
-            posicionCubo.x += +1.0f * velocidad * deltaTime; // Posicion actual, la desplazamos 1 punto a la derecha.
+            nuevaPosicion.x = nuevaPosicion.x + 1.0f * jugador1.getVelocidad() * GetFrameTime();
         }
 
         if (IsKeyDown(KEY_W))
         {
-            posicionCubo.z += -1.0f * velocidad * deltaTime; // Posicion actual, la desplazamos 1 punto hacia arriba.
+            nuevaPosicion.z = nuevaPosicion.z + -1.0f * jugador1.getVelocidad() * GetFrameTime(); // Posicion actual, la desplazamos 1 punto hacia arriba.
         }
 
         if (IsKeyDown(KEY_S))
         {
-            posicionCubo.z += 1.0f * velocidad * deltaTime; // Posicion actual, la desplazamos 1 punto hacia abajo.
+            nuevaPosicion.z = nuevaPosicion.z + 1.0f * jugador1.getVelocidad() * GetFrameTime(); // Posicion actual, la desplazamos 1 punto hacia abajo.
         }
 
         if (IsKeyPressed(KEY_SPACE))
         {
-            velocidadY = fuerzaSalto; // Posicion actual, la desplazamos 1 punto hacia arriba.
+            // jugador1.saltar()
+            posicionCubo = Vector3Add(posicionCubo, {0.0f, 1.0f, 0.0f}); // Posicion actual, la desplazamos 1 punto hacia arriba.
         }
 
+        jugador1.setPosicion(nuevaPosicion);
         // =========================================================================
         // 2. SECCIÓN DE ACTUALIZACIÓN (Cálculos, físicas y lógica)
         // =========================================================================
@@ -106,7 +112,12 @@ int main()
             velocidadY = 0.0f;     // Cancela la fuerza de caída
         }
 
-        actualizarPosicionCamara(posicionCubo, camera);
+        camera.target = Vector3Lerp(camera.target, jugador1.getPosicion(), suavidadCamara * GetFrameTime());
+        camera.position = Vector3Lerp(camera.position,
+                                      Vector3Add(jugador1.getPosicion(), INITIAL_CAMERA_POSITION),
+                                      suavidadCamara * GetFrameTime());
+
+        // Vector3Lerp(camera.position, posicionIdealCamara, suavizadoCamara * GetFrameTime());
 
         // =========================================================================
         // 3. SECCIÓN DE RENDERIZADO (Dibujar todo en pantalla)
@@ -118,7 +129,8 @@ int main()
         // Inicio del espacio de dibujo 3D
         BeginMode3D(camera);
         // Dibuja el cubo utilizando las constantes definidas
-        DrawCube(posicionCubo, CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, RED);
+        DrawCube(jugador1.getPosicion(), CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, jugador1.getColor());
+
         // X, Y, Z ()
 
         // Dibuja la cuadrícula de guía en el suelo
@@ -135,16 +147,4 @@ int main()
 
     // Cierra la ventana y libera los recursos
     CloseWindow();
-}
-
-void actualizarPosicionCamara(Vector3 posicionObjeto, Camera3D &camera)
-{
-    Vector3 camaraDistancia = INITIAL_CAMERA_POSITION;
-    float suavizadoCamara = 8.0f;
-
-    Vector3 posicionIdealCamara = Vector3Add(posicionObjeto, camaraDistancia);
-    Vector3 objetivoIdealCamara = posicionObjeto;
-
-    camera.position = Vector3Lerp(camera.position, posicionIdealCamara, suavizadoCamara * GetFrameTime());
-    camera.target = Vector3Lerp(camera.target, objetivoIdealCamara, suavizadoCamara * GetFrameTime());
 }

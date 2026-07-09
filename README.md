@@ -56,185 +56,6 @@ Modulo 4:
 
 - 8
 
----
-
-# Sesión 4 — Booleanos y variables
-
-## Objetivos
-
-- Comprender lógica booleana
-- Almacenar información del juego
-
-## Contenidos
-
-### Booleanos
-
-Representación de estados:
-
-- Verdadero
-- Falso
-
-Ejemplo:
-- ¿Tiene llave el jugador?
-
-```cpp
-bool hasKey = false;
-```
-
-### Variables
-Uso de variables para almacenar:
-
-- Vida
-- Monedas
-- Puntuación
-
-## Práctica
-Implementar:
-
-- Recogida de monedas
-- Sistema de llaves
-- Contador de puntos
-
-## Conceptos técnicos
-```cpp
-int coins = 0;
-int health = 100;
-```
-
----
-
-# Sesión 5 — Zonas peligrosas y teletransportadores
-
-## Objetivos
-- Programar zonas con efectos
-- Crear mecánicas de daño y movimiento instantáneo
-
-## Contenidos
-- Detección de colisiones
-- Daño progresivo
-- Teletransporte
-
-## Práctica
-Crear:
-
-- Lava
-- Trampas
-- Portales
-- Checkpoints
-
-## Conceptos técnicos
-```cpp
-if (CheckCollisionBoxes(player, lava))
-{
-    health -= 1;
-}
-```
-
----
-
-# Sesión 6 — Mecánicas sandbox
-
-## Objetivos
-- Introducir interacción con bloques
-- Simular recolección
-
-## Contenidos
-- Click del ratón
-- Raycasting
-- Selección de objetos
-
-## Práctica
-Crear una herramienta que permita:
-
-- Detectar bloques
-- Seleccionarlos
-- Destruirlos
-
-## Conceptos técnicos
-```cpp
-GetMouseRay()
-```
-
----
-
-# Sesión 7 — Cofres, enemigos y tienda
-
-## Objetivos
-- Añadir mecánicas clásicas de juego
-- Introducir IA sencilla y UI
-
-## Contenidos
-
-### Cofres aleatorios
-- Aparición aleatoria
-- Recompensas
-
-### Enemigo patrullero
-Movimiento entre dos puntos:
-
-- Punto A
-- Punto B
-
-### Tienda
-Interfaz de compra usando monedas
-
-## Práctica
-Implementar:
-
-- Cofres con recompensas
-- Enemigo que patrulla
-- Tienda básica
-
-## Conceptos técnicos
-```cpp
-rand() % 10
-```
-
-```cpp
-if (enemy.x > max) dir = -1;
-```
-
-```cpp
-DrawRectangle()
-DrawText()
-```
-
----
-
-# Sesión 8 — Testing y proyecto final
-
-## Objetivos
-
-- Aprender a detectar errores
-- Corregir bugs
-- Presentar el proyecto
-
-## Contenidos
-
-- Qué es un bug
-- Técnicas básicas de testing
-- Validación de mecánicas
-
-## Práctica
-
-Testing cruzado entre compañeros:
-
-- Pruebas de colisiones
-- Pruebas de lógica
-- Detección de errores visuales
-
-## Proyecto final
-
-Cada alumno presentará su juego y añadirá al menos una mecánica propia:
-
-- Doble salto
-- Enemigos extra
-- Portal secreto
-- Tienda avanzada
-- Nuevas trampas
-
----
-
 ## Metodología
 
 Cada sesión seguirá la siguiente estructura:
@@ -267,7 +88,20 @@ Podeis contactar a través del email: <cursosjaviermorenof@gmail.com>
 
 ---
 
-## Enlaces de interes:
+## Enlaces de interes
 
-- Aprender comandos de Git mediante un videojuego interactivo https://ohmygit.org/
-- Recopilatorio de modulos (Archivos) incluidos en Raylib https://www.raylib.com/cheatsheet/cheatsheet.html
+### Visual Studio Code
+
+Configurar utilidades de Visual Stuio Code
+
+- [Autoformateo de archivos al guardar](documentos/configurar%20el%20autoformateo%20del%20archivo.md)
+- [Autoguardado](documentos/autoguardado_en_VSCode.md)
+
+### Git
+
+- Aprender comandos de Git mediante un videojuego interactivo <https://ohmygit.org/>
+- Corregir errores en la cuenta de github añadida en Visual Studio Code [Corregir usuario git](documentos/corregir%20usuario%20git.md)
+
+### Raylib
+
+- Recopilatorio de modulos (Archivos) incluidos en Raylib <https://www.raylib.com/cheatsheet/cheatsheet.html>

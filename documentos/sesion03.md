@@ -9,11 +9,11 @@
     - [Archivo de cabecera `hpp`](#archivo-de-cabecera-hpp)
     - [Archivo fuente `cpp`](#archivo-fuente-cpp)
     - [Funciones](#funciones)
+  - [Trasladar la lógica de archivo `main.cpp` a los nuevos archivos](#trasladar-la-lógica-de-archivo-maincpp-a-los-nuevos-archivos)
 
 ## Objetivos
 
 - Crear una clase jugador y definir su lógica
-- 
 
 ## Crear una clase jugador y definir su lógica
 
@@ -50,8 +50,15 @@ Ejemplo de jugador:
 #pragma once // Evita problemas si el archivo se incluye varias veces
 
 class Jugador {
-public:
+private:
+    // Atributos
     int vidas;
+
+public:
+    // Constructor de la clase (Crea una instancia de Jugador)
+    Jugador(int vidasIniciales);
+    // Desctructor (Libera recursos del sistema)
+    ~Jugador();
 
     // Solo se declara la función, indicando qué recibe y qué devuelve
     void RecibirDanio(int cantidad); 
@@ -66,6 +73,11 @@ Ejemplo de jugador:
 
 ```cpp
 #include "jugador.hpp" // Es obligatorio incluir su propio archivo de cabecera
+
+// Constructor: Rellenamos las variables del molde
+Jugador::Jugador(int vidasIniciales){
+    vidas = vidasIniciales;
+}
 
 // Aquí se programa el comportamiento de la función
 void Jugador::RecibirDanio(int cantidad) {
@@ -106,7 +118,7 @@ Una función es un bloque de código reutilizable que realiza una tarea específ
 Para crear una función debes seguir una estructura de tres partes esenciales: el tipo de retorno, el nombre de la función y los parámetros entre paréntesis.
 
 ```cpp
-tipo_de_retorno nombreDeLaFuncion(tipo_parametro1 parametro1, tipo_parametro2 parametro2) {
+tipo_de_retorno nombreDeLaFuncion(tipo_parametro1 nombreParametro1, tipo_parametro2 nombreParametro2) {
     // Aquí va el código que ejecuta la función
     return valor; // Solo si el tipo de retorno no es 'void'
 }
@@ -119,3 +131,14 @@ int CalcularDanioCritico(int danioBase) {
     return danioTotal;              // Devuelve el resultado al juego
 }
 ```
+
+## Trasladar la lógica de archivo `main.cpp` a los nuevos archivos
+
+Una vez entendido el concepto de clases y archivos, podemos trasladar toda la lógica asociada al jugador a un archivo.
+
+1. Primero creamos un nuevo archivo con el nombre `Jugador.hpp` en la carpeta raiz `src/`.
+![alt text](img/CrearArchivo.png)
+2. Rellenamos el **archivo de cabecera**, `Jugador.hpp` como hemos visto anteriormente [¿Como rellenar el archivo de cabecera?](#archivo-de-cabecera-hpp).
+3. Creamos un nuevo archivo con el nombre `Jugador.cpp` en la carpeta raiz `src/`.
+![alt text](img/CrearArchivo.png)
+4. Rellenamos el **arhivo de código fuente**, `Jugador.cpp` como hemos visto en [¿Como rellenar el archivo de código fuente?](#archivo-fuente-cpp)
