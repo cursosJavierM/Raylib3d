@@ -55,34 +55,35 @@ int main()
         // =========================================================================
         // 1. SECCIÓN DE ENTRADA (Capturar lo que hace el usuario)
         // =========================================================================
+        Vector3 nuevaPosicion = jugador1.getPosicion();
+
         if (IsKeyDown(KEY_A))
         {
-            Vector3 nuevaPosicion = jugador1.getPosicion();
             nuevaPosicion.x = nuevaPosicion.x + -1.0f * jugador1.getVelocidad() * GetFrameTime();
-            jugador1.setPosicion(nuevaPosicion);
-            
             // posicionCubo.x = posicionCubo.x + -1.0f * jugador1.getVelocidad() * GetFrameTime();
         }
         if (IsKeyDown(KEY_D))
         {
-            posicionCubo.x = posicionCubo.x + 1.0f * jugador1.getVelocidad() * GetFrameTime();
+            nuevaPosicion.x = nuevaPosicion.x + 1.0f * jugador1.getVelocidad() * GetFrameTime();
         }
 
         if (IsKeyDown(KEY_W))
         {
-            posicionCubo.z = posicionCubo.z + -1.0f * jugador1.getVelocidad() * GetFrameTime(); // Posicion actual, la desplazamos 1 punto hacia arriba.
+            nuevaPosicion.z = nuevaPosicion.z + -1.0f * jugador1.getVelocidad() * GetFrameTime(); // Posicion actual, la desplazamos 1 punto hacia arriba.
         }
 
         if (IsKeyDown(KEY_S))
         {
-            posicionCubo.z = posicionCubo.z + 1.0f * jugador1.getVelocidad() * GetFrameTime(); // Posicion actual, la desplazamos 1 punto hacia abajo.
+            nuevaPosicion.z = nuevaPosicion.z + 1.0f * jugador1.getVelocidad() * GetFrameTime(); // Posicion actual, la desplazamos 1 punto hacia abajo.
         }
 
         if (IsKeyPressed(KEY_SPACE))
         {
+            // jugador1.saltar()
             posicionCubo = Vector3Add(posicionCubo, {0.0f, 1.0f, 0.0f}); // Posicion actual, la desplazamos 1 punto hacia arriba.
         }
 
+        jugador1.setPosicion(nuevaPosicion);
         // =========================================================================
         // 2. SECCIÓN DE ACTUALIZACIÓN (Cálculos, físicas y lógica)
         // =========================================================================
@@ -97,12 +98,9 @@ int main()
             posicionCubo.y = CUBE_SIZE / 2;
         }
 
-        // camera.target = posicionCubo;
-        camera.target = Vector3Lerp(camera.target, posicionCubo, suavidadCamara * GetFrameTime());
-        // camera.position = Vector3Add(posicionCubo, INITIAL_CAMERA_POSITION);
-
+        camera.target = Vector3Lerp(camera.target, jugador1.getPosicion(), suavidadCamara * GetFrameTime());
         camera.position = Vector3Lerp(camera.position,
-                                      Vector3Add(posicionCubo, INITIAL_CAMERA_POSITION),
+                                      Vector3Add(jugador1.getPosicion(), INITIAL_CAMERA_POSITION),
                                       suavidadCamara * GetFrameTime());
 
         // Vector3Lerp(camera.position, posicionIdealCamara, suavizadoCamara * GetFrameTime());
@@ -117,7 +115,7 @@ int main()
         // Inicio del espacio de dibujo 3D
         BeginMode3D(camera);
         // Dibuja el cubo utilizando las constantes definidas
-        DrawCube(posicionCubo, CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, jugador1.getColor());
+        DrawCube(jugador1.getPosicion(), CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, jugador1.getColor());
 
         // X, Y, Z ()
 
