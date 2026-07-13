@@ -28,14 +28,11 @@ public:
     Color getColor() { return color; }
     float getFuerzaSalto() { return fuerzaSalto; }
     Vector3 getPosicion() { return posicion; }
-    // VelocidadY
+    float getSize() { return size; }
+    float getVelocidadY() { return velocidadY; }
 
-    void setPosicion(Vector3 nuevaPosicion)
-    // VelocidadY
-
-    {
-        posicion = nuevaPosicion;
-    }
+    void setPosicion(Vector3 nuevaPosicion) { posicion = nuevaPosicion; };
+    void setVelocidadY(float velocidadNueva) { velocidadY = velocidadNueva; };
 
     void saltar();
 };
