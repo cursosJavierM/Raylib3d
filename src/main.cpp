@@ -37,7 +37,7 @@ int main()
     camera.fovy = INITIAL_CAMERA_FOVY;
     camera.projection = CAMERA_PERSPECTIVE; // Perspectiva real: objetos lejanos se ven más pequeños
 
-    Jugador jugador1 = Jugador(4.0f, RED, 8.0f, CUBE_POSITION);
+    Jugador jugador1 = Jugador(4.0f, RED, 8.0f, CUBE_POSITION, CUBE_SIZE);
 
     // Establece el objetivo de fotogramas por segundo de la ventana
     SetTargetFPS(MAX_FPS);
@@ -60,7 +60,6 @@ int main()
         if (IsKeyDown(KEY_A))
         {
             nuevaPosicion.x = nuevaPosicion.x + -1.0f * jugador1.getVelocidad() * GetFrameTime();
-            // posicionCubo.x = posicionCubo.x + -1.0f * jugador1.getVelocidad() * GetFrameTime();
         }
         if (IsKeyDown(KEY_D))
         {
@@ -133,16 +132,4 @@ int main()
 
     // Cierra la ventana y libera los recursos
     CloseWindow();
-}
-
-void actualizarPosicionCamara(Vector3 posicionObjeto, Camera3D &camera)
-{
-    Vector3 camaraDistancia = INITIAL_CAMERA_POSITION;
-    float suavizadoCamara = 8.0f;
-
-    Vector3 posicionIdealCamara = Vector3Add(posicionObjeto, camaraDistancia);
-    Vector3 objetivoIdealCamara = posicionObjeto;
-
-    camera.position = Vector3Lerp(camera.position, posicionIdealCamara, suavizadoCamara * GetFrameTime());
-    camera.target = Vector3Lerp(camera.target, objetivoIdealCamara, suavizadoCamara * GetFrameTime());
 }
