@@ -376,3 +376,7 @@ Durante este curso:
 
 - Usaremos siempre la terminal de Visual Studio Code (MINGW64)
 - Todo el código se compila y ejecuta con 'make run'
+
+## añadir upstream
+
+git remote add upstream https://github.com/cursosJavierM/Raylib3d
