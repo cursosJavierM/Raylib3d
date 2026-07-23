@@ -4,6 +4,7 @@
 #include "Jugador.hpp"
 #include "Moneda.hpp"
 #include <vector>
+#include "Enemigo.hpp"
 
 // Constantes de Configuración de la Ventana
 #define SCREEN_WIDTH 900  // Ancho de la ventana en píxeles
@@ -56,6 +57,8 @@ int main()
     monedas.push_back(Moneda((Vector3){0.0f, 0.5f, -5.0f}));
     monedas.push_back(Moneda((Vector3){4.0f, 8.0f, 4.0f})); // Esta está más alta, requiere saltar
 
+    monedas.push_back(Moneda((Vector3){10.0f, 0.5f, -2.0f}));
+
     // Crear 10 monedas en fila automáticamente con un bucle for
     for (int i = 0; i < 10; i++)
     {
@@ -64,6 +67,9 @@ int main()
     }
 
     int score = 0; // Puntuación, en nuestro caso número de monedas obtenidas.
+
+    Enemigo enemigo1((Vector3){-10.0f, 0.6f, -10.0f}, 3.5f, 1.2f, PURPLE);
+    bool juegoTerminado = false; // Flag para pausar si te atrapa
 
     // Establece el objetivo de fotogramas por segundo de la ventana
     SetTargetFPS(MAX_FPS);
@@ -177,6 +183,8 @@ int main()
         {
             moneda.dibujar();
         }
+
+        enemigo1.dibujar();
 
         // Dibuja la cuadrícula de guía en el suelo
         DrawGrid(GRID_SLICES, GRID_SPACING);
