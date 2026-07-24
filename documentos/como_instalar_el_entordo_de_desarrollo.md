@@ -215,6 +215,12 @@ vamos a **Visual Studio Code** y pulsamos en la opción de clonar
 
 vamos a [configurar](vscode://settings/terminal.integrated.profiles.windows) y pulsamos en el botón que indica la imagen:
 
+o escribimos:
+``` bash
+profile.windows
+```
+
+
 ![alt text](img/PerfilesTerminalWindows.png)
 
 Ahí, añadimos al final el siguiente texto:
