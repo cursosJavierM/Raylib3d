@@ -6,6 +6,8 @@
 #include <vector>
 #include "Enemigo.hpp"
 
+// C++
+
 // Constantes de Configuración de la Ventana
 #define SCREEN_WIDTH 900  // Ancho de la ventana en píxeles
 #define SCREEN_HEIGHT 600 // Alto de la ventana en píxeles
@@ -28,23 +30,17 @@
 #define TEXT_POS_Y 10     // Posición Y del texto en la pantalla
 #define TEXT_FONT_SIZE 20 // Tamaño de la fuente del texto
 
-// Actualiza la posición de la cámara con respecto a la posición de un objeto, de forma suave.
-void actualizarPosicionCamara(Vector3 posicionObjeto, Camera3D &camera);
+void inicializarJuego(Camera3D &camera);
 
 int main()
 {
     // Define la pantalla principal del juego
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Mi primer juego");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "El juego del cubo");
 
     InitAudioDevice(); // Abre un canal para el audio
 
     // Define la cámara 3D con sus parámetros iniciales
     Camera3D camera = {0};
-    camera.position = INITIAL_CAMERA_POSITION;
-    camera.target = INITIAL_CAMERA_TARGET;
-    camera.up = INITIAL_CAMERA_UP;
-    camera.fovy = INITIAL_CAMERA_FOVY;
-    camera.projection = CAMERA_PERSPECTIVE; // Perspectiva real: objetos lejanos se ven más pequeños
 
     Jugador jugador1 = Jugador(5.0f, RED, 8.0f, CUBE_POSITION, CUBE_SIZE);
 
@@ -69,6 +65,7 @@ int main()
     int score = 0; // Puntuación, en nuestro caso número de monedas obtenidas.
 
     Enemigo enemigo1((Vector3){-10.0f, 0.6f, -10.0f}, 3.5f, 1.2f, PURPLE);
+
     bool juegoTerminado = false; // Flag para pausar si te atrapa
 
     // Establece el objetivo de fotogramas por segundo de la ventana
@@ -80,8 +77,17 @@ int main()
     float gravedad = -9.8f;
     float suavidadCamara = 7.0f;
 
+    inicializarJuego(camera);
+
+    // Bucle principal del juego
     while (!WindowShouldClose())
     {
+
+        if (juegoTerminado)
+        {
+            // Reiniciar el juego
+        }
+
         // =========================================================================
         // 1. SECCIÓN DE ENTRADA (Capturar lo que hace el usuario)
         // =========================================================================
@@ -146,6 +152,18 @@ int main()
         // Guardamos la posición final en el jugador
         jugador1.setPosicion(nuevaPosicion);
 
+        // Actualizar enemigo
+        enemigo1.cazar(jugador1.getPosicion(), GetFrameTime());
+
+        if (CheckCollisionSpheres(
+                jugador1.getPosicion(),
+                jugador1.getSize(),
+                enemigo1.getPosicion(),
+                enemigo1.getSize()))
+        {
+            juegoTerminado = true;
+        }
+
         // Usamos un bucle por referencia (&) para modificar el estado de cada moneda original
         for (Moneda &moneda : monedas)
         {
@@ -206,4 +224,14 @@ int main()
     CloseAudioDevice();        // Cierra la tarjeta de sonido
     // Cierra la ventana y libera los recursos
     CloseWindow();
+}
+
+void inicializarJuego(Camera3D &camera)
+{
+    // Inicializar todos los elementos del juego
+    camera.position = INITIAL_CAMERA_POSITION;
+    camera.target = INITIAL_CAMERA_TARGET;
+    camera.up = INITIAL_CAMERA_UP;
+    camera.fovy = INITIAL_CAMERA_FOVY;
+    camera.projection = CAMERA_PERSPECTIVE; // Perspectiva real: objetos lejanos se ven más pequeños
 }
