@@ -12,5 +12,10 @@ private:
 
 public:
     ZonaSegura(Vector3 nuevaPosicion, float NuevoSize);
-    // Metodos
+
+    // Metodos getters (obtener)
+    Vector3 getPosicion() { return posicion; }
+    BoundingBox getBoundingBox();
+
+    void dibujar() const;
 };

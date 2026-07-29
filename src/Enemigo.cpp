@@ -9,6 +9,13 @@ Enemigo::Enemigo(Vector3 posInicial, float vel, float tamano, Color col)
     color = col;
 }
 
+BoundingBox Enemigo::getBoundingBox()
+{
+    return {
+        (Vector3){posicion.x - size / 2, posicion.y - size / 2, posicion.z - size / 2},
+        (Vector3){posicion.x + size / 2, posicion.y + size / 2, posicion.z + size / 2}};
+}
+
 void Enemigo::cazar(Vector3 posicionJugador, float deltaTime)
 {
     // 1. Calcular el vector que va desde el enemigo hacia el jugador

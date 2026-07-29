@@ -5,6 +5,7 @@
 #include "Moneda.hpp"
 #include <vector>
 #include "Enemigo.hpp"
+#include "ZonaSegura.hpp"
 
 // C++
 
@@ -69,6 +70,8 @@ int main()
 
     bool juegoTerminado = false; // Flag para pausar si te atrapa
 
+    ZonaSegura zonaSegura1(CUBE_POSITION, CUBE_SIZE * 2);
+
     // Establece el objetivo de fotogramas por segundo de la ventana
     SetTargetFPS(MAX_FPS);
 
@@ -77,8 +80,6 @@ int main()
     // Objetos del entorno
     float gravedad = -9.8f;
     float suavidadCamara = 7.0f;
-    float sizeZonaSegura = 2.0f;
-    Vector3 centroZonaSegura = {0, sizeZonaSegura / 2, 0};
 
     inicializarJuego(camera, jugador1, monedas, enemigo1);
 
@@ -158,14 +159,19 @@ int main()
         // Guardamos la posición final en el jugador
         jugador1.setPosicion(nuevaPosicion);
 
+        // Guardar posicion enemigo1 antes de cazar
+        Vector3 posicionEnemigoAntesDeCazar = enemigo1.getPosicion();
+
         // Actualizar enemigo
         enemigo1.cazar(jugador1.getPosicion(), GetFrameTime());
 
-        if (CheckCollisionSpheres(
-                jugador1.getPosicion(),
-                jugador1.getSize(),
-                enemigo1.getPosicion(),
-                enemigo1.getSize()))
+        // Comprobar si el enemigo ha entrado en la zona segura
+        if (CheckCollisionBoxes(enemigo1.getBoundingBox(), zonaSegura1.getBoundingBox()))
+        {
+            enemigo1.setPosicion(posicionEnemigoAntesDeCazar);
+        }
+
+        if (CheckCollisionBoxes(jugador1.getBoundingBox(), enemigo1.getBoundingBox()))
         {
             juegoTerminado = true;
         }
@@ -209,6 +215,8 @@ int main()
         }
 
         enemigo1.dibujar();
+
+        zonaSegura1.dibujar();
 
         // Dibuja la cuadrícula de guía en el suelo
         DrawGrid(GRID_SLICES, GRID_SPACING);

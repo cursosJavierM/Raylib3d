@@ -15,6 +15,7 @@ public:
     // Métodos Getters
     Vector3 getPosicion() const { return posicion; }
     float getSize() const { return size; }
+    BoundingBox getBoundingBox();
 
     // Métodos Setters
     void setPosicion(Vector3 nuevaPosicion) { posicion = nuevaPosicion; }

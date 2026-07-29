@@ -31,6 +31,8 @@ public:
     float getVelocidadY() { return velocidadY; }
     float getSize() { return size; }
 
+    BoundingBox getBoundingBox();
+
     void setPosicion(Vector3 nuevaPosicion) { posicion = nuevaPosicion; }
 
     void setVelocidadY(float nuevaVelocidadY) { velocidadY = nuevaVelocidadY; }

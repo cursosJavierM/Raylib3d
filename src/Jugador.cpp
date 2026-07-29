@@ -15,6 +15,13 @@ Jugador::Jugador(float velocidadInicial,
     size = sizeInicial;
 }
 
+BoundingBox Jugador::getBoundingBox()
+{
+    return {
+        (Vector3){posicion.x - size / 2, posicion.y - size / 2, posicion.z - size / 2},
+        (Vector3){posicion.x + size / 2, posicion.y + size / 2, posicion.z + size / 2}};
+}
+
 void Jugador::saltar()
 {
     if (posicion.y <= size / 2.0f)
