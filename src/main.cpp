@@ -44,6 +44,7 @@ int main()
     // Define la cámara 3D con sus parámetros iniciales
     Camera3D camera = {0};
 
+
     Jugador jugador1 = Jugador(5.0f, RED, 8.0f, CUBE_POSITION, CUBE_SIZE);
 
     // === CREACIÓN RÁPIDA DE LA COLECCIÓN DE MONEDAS ===
