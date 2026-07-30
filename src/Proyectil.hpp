@@ -10,9 +10,10 @@ private:
     Vector3 posicion;
     float velocidad;
     float size;
+    Vector3 objetivo;
 
 public:
-    Proyectil();
+    Proyectil(Vector3 posicionInicial, float velocidadInicial, float sizeInicial, Vector3 objetivoInicial);
 
     // Métodos de obtención (getters)
     Vector3 getPosicion() { return posicion; }
@@ -21,4 +22,5 @@ public:
 
     // Métodos de modificación (setters)
     void setPosicion(Vector3 nuevaPosicion) { posicion = nuevaPosicion; }
+    void actualizar();
 };

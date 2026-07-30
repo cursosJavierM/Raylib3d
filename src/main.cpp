@@ -44,7 +44,6 @@ int main()
     // Define la cámara 3D con sus parámetros iniciales
     Camera3D camera = {0};
 
-
     Jugador jugador1 = Jugador(5.0f, RED, 8.0f, CUBE_POSITION, CUBE_SIZE);
 
     // === CREACIÓN RÁPIDA DE LA COLECCIÓN DE MONEDAS ===
@@ -67,7 +66,7 @@ int main()
 
     int score = 0; // Puntuación, en nuestro caso número de monedas obtenidas.
 
-    Enemigo enemigo1(ENEMIGO_POSICION_INICIAL, 3.5f, 1.2f, PURPLE);
+    Enemigo enemigo1(ENEMIGO_POSICION_INICIAL, 3.5f, 1.2f, PURPLE, 2.0f);
 
     bool juegoTerminado = false; // Flag para pausar si te atrapa
 
