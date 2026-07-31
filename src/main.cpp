@@ -21,11 +21,13 @@
 #define INITIAL_CAMERA_FOVY 45.0f                           // Amplitud del lente (el ángulo de apertura vertical)
 
 // Constantes del Entorno y Objetos
-#define GRID_SLICES 20                                     // Número de divisiones en la cuadrícula
-#define GRID_SPACING 1.0f                                  // Espaciado entre las divisiones de la cuadrícula
-#define CUBE_SIZE 1.0f                                     // Tamaño del cubo (Ancho, Alto, Largo)
-#define CUBE_POSITION (Vector3){0.0f, CUBE_SIZE / 2, 0.0f} // Posición del cubo central en el mundo
-#define ENEMIGO_POSICION_INICIAL (Vector3){-10.0f, 0.6f, -10.0f}
+#define GRID_SLICES 20                                           // Número de divisiones en la cuadrícula
+#define GRID_SPACING 1.0f                                        // Espaciado entre las divisiones de la cuadrícula
+#define CUBE_SIZE 1.0f                                           // Tamaño del cubo (Ancho, Alto, Largo)
+#define CUBE_POSITION (Vector3){0.0f, CUBE_SIZE / 2, 0.0f}       // Posición del cubo central en el mundo
+#define ENEMIGO_POSICION_INICIAL (Vector3){-10.0f, 0.6f, -10.0f} // Posicion del enemigo incial
+#define TIEMPO_VIDA_PROYECTIL 10.0f                              // Tiempo de vida del proyectil por defecto
+#define VELOCIDAD_PROYECTIL 5.0f                                 // Velocidad por defecto del proyectil
 
 // Constantes de la Interfaz (UI)
 #define TEXT_POS_X 10     // Posición X del texto en la pantalla
@@ -68,6 +70,8 @@ int main()
 
     Enemigo enemigo1(ENEMIGO_POSICION_INICIAL, 3.5f, 1.2f, PURPLE, 2.0f);
 
+    float tiempoTranscurrido = 0.0f;
+
     bool juegoTerminado = false; // Flag para pausar si te atrapa
 
     ZonaSegura zonaSegura1(CUBE_POSITION, CUBE_SIZE * 2);
@@ -86,6 +90,7 @@ int main()
     // Bucle principal del juego
     while (!WindowShouldClose())
     {
+        tiempoTranscurrido += GetFrameTime();
 
         if (juegoTerminado)
         {
@@ -165,6 +170,20 @@ int main()
         // Actualizar enemigo
         enemigo1.cazar(jugador1.getPosicion(), GetFrameTime());
 
+        enemigo1.disparar(enemigo1.getPosicion(), VELOCIDAD_PROYECTIL, 0.5f, jugador1.getPosicion(), TIEMPO_VIDA_PROYECTIL);
+
+        for (Proyectil &proyectil : enemigo1.getListaProyectiles())
+        {
+            proyectil.actualizar();
+
+            if (proyectil.getTiempoRestanteDeVida() < 0)
+            {
+            }
+        }
+
+        std::erase_if(enemigo1.getListaProyectiles(), [](Proyectil &p)
+                      { return p.getTiempoRestanteDeVida() <= 0.0f; });
+
         // Comprobar si el enemigo ha entrado en la zona segura
         if (CheckCollisionBoxes(enemigo1.getBoundingBox(), zonaSegura1.getBoundingBox()))
         {
@@ -215,6 +234,11 @@ int main()
         }
 
         enemigo1.dibujar();
+
+        for (Proyectil &proyectil : enemigo1.getListaProyectiles())
+        {
+            proyectil.dibujar();
+        }
 
         zonaSegura1.dibujar();
 
