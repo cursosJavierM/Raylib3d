@@ -54,6 +54,7 @@ void Enemigo::disparar(Vector3 posicionInicial, float velocidadIncial, float siz
 
     if (tiempoUltimoProyectil > tiempoEntreProyectiles)
     {
+        // FIXME: Corregir tiempoUltimoProyectil -= tiempoEntreProyectiles;
         tiempoUltimoProyectil - tiempoEntreProyectiles;
 
         Proyectil nuevoProyectil(posicionInicial, velocidadIncial, sizeInicial, objetivo, tiempoDeVida);

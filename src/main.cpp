@@ -176,6 +176,7 @@ int main()
         {
             proyectil.actualizar();
 
+            // TODO: Eliminar esto
             if (proyectil.getTiempoRestanteDeVida() < 0)
             {
             }
@@ -286,4 +287,6 @@ void inicializarJuego(Camera3D &camera, Jugador &jugador1, std::vector<Moneda> &
 
     // Reinicializamos la posición del Enemigo
     enemigo1.setPosicion(ENEMIGO_POSICION_INICIAL);
+
+    // TODO: Eliminar todas las balas -> Clase Enemigo enemigo1.eliminarTodosLosProyectiles(). .clear()
 }

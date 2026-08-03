@@ -10,6 +10,9 @@ Proyectil::Proyectil(Vector3 posicionInicial, float velocidadInicial, float size
     size = sizeInicial;
     objetivo = objetivoInicial;
     tiempoRestanteDeVida = tiempoRestanteVidaIncial;
+    // TODO: Añaidir dirección en la creación y quitar el cálculo de actualizar().
+    /*     Vector3 dir = Vector3Subtract(objetivoInicial, posicionInicial);
+    direccion = Vector3Normalize(dir); */
 }
 
 void Proyectil::actualizar()
