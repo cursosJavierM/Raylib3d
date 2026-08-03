@@ -89,13 +89,23 @@ int main()
 
     Sound sonidoMoneda = LoadSound("resources/moneda.mp3");
 
+    // TODO: Añadir sonido de muerte.
+    /* Sound sonidoMuerte = LoadSound("resources/freesound_community-8-bit-explosion-low-resonant-45659.mp3"); */
+
+    // TODO: Añadir musica de fondo.
+    /*  Music musicaFondo = LoadMusicStream("resources/nocopyrightsound633-arcade-beat-323176.mp3"); // Cargar el archivo de musica.
+     musicaFondo.looping = true;                                                                  // Repetir la musica de fondo */
+
     // Objetos del entorno
     float gravedad = -9.8f;
     float suavidadCamara = 7.0f;
 
     inicializarJuego(camera, jugador1, monedas, enemigo1);
 
-    // Bucle principal del juego
+    // TODO: Añadir musica de fondo.
+    /* PlayMusicStream(musicaFondo); // Incial la música. */
+
+    //  Bucle principal del juego
     while (!WindowShouldClose())
     {
         tiempoTranscurrido += GetFrameTime();
@@ -106,6 +116,9 @@ int main()
             inicializarJuego(camera, jugador1, monedas, enemigo1);
             score = 0;
             juegoTerminado = false;
+            // TODO: tiempoTranscurrido = 0.f;
+            // TODO: Hacer sonar la muerte del jugador.PlaySound(sonidoMuerte);
+            // TODO: SeekMusicStream(musicaFondo, 0.0f); // Reiniciar la música de fondo a 0.
         }
 
         // =========================================================================
@@ -147,6 +160,8 @@ int main()
         // 2. SECCIÓN DE ACTUALIZACIÓN (Cálculos, físicas y lógica)
         // =========================================================================
 
+        // TODO: Añadir musica de fondo. UpdateMusicStream(musicaFondo);
+
         // Aplicamos físicas sobre la velocidad en el eje Y.
         if (nuevaPosicion.y > alturaSuelo || jugador1.getVelocidadY() > 0.0f)
         {
@@ -180,10 +195,12 @@ int main()
 
         enemigo1.disparar(enemigo1.getPosicion(), VELOCIDAD_PROYECTIL, SIZE_BALA, jugador1.getPosicion(), TIEMPO_VIDA_PROYECTIL);
 
+        // Actualizar los proyectiles
         for (Proyectil &proyectil : enemigo1.getListaProyectiles())
         {
             proyectil.actualizar();
 
+            // Compobar si un proyectil ha chocado con el jugador.
             if (CheckCollisionBoxSphere(jugador1.getBoundingBox(),
                                         proyectil.getPosicion(),
                                         proyectil.getSize()))
@@ -192,6 +209,7 @@ int main()
             }
         }
 
+        // Eliminar los proyectiles que han superado su tiempo de vida.
         std::erase_if(enemigo1.getListaProyectiles(), [](Proyectil &p)
                       { return p.getTiempoRestanteDeVida() <= 0.0f; });
 
@@ -201,6 +219,7 @@ int main()
             enemigo1.setPosicion(posicionEnemigoAntesDeCazar);
         }
 
+        // Comprobar si el enemigo ha cochado con el jugador
         if (CheckCollisionBoxes(jugador1.getBoundingBox(), enemigo1.getBoundingBox()))
         {
             juegoTerminado = true;
@@ -266,12 +285,31 @@ int main()
         // 2. Lo dibujamos en pantalla pasando el texto convertido con .c_str()
         DrawText(textoScore.c_str(), TEXT_POS_X, TEXT_POS_Y, TEXT_FONT_SIZE, DARKGRAY);
 
+        // TODO: Añadir tiempo a la IU del juego.
+        /* //  1. Calculamos los minutos y los segundos enteros
+        int minutos = (int)tiempoTranscurrido / 60;
+        int segundos = (int)tiempoTranscurrido % 60;
+
+        // 2. Creamos el texto formateado
+        // "%02i" fuerza a que el entero siempre tenga 2 dígitos, añadiendo un cero a la izquierda si es necesario
+        const char *textoTiempo = TextFormat("%02i:%02i", minutos, segundos);
+
+        // 3. Calculamos la posición X para que quede perfectamente centrado
+        int anchoTexto = MeasureText(textoTiempo, TEXT_FONT_SIZE);
+        int posXCentrado = (GetScreenWidth() / 2) - (anchoTexto / 2);
+
+        // 4. Dibujamos en pantalla
+        DrawText(textoTiempo, posXCentrado, TEXT_POS_Y, TEXT_FONT_SIZE, DARKGRAY); */
+
         // Terminar de dibujar en la ventana
         EndDrawing();
     }
 
     UnloadSound(sonidoMoneda); // Libera la memoria del archivo de audio
-    CloseAudioDevice();        // Cierra la tarjeta de sonido
+
+    // TODO: Añadir musica de fondo. UnloadMusicStream(musicaFondo); // Liberar la memoria del archivo de musica.
+
+    CloseAudioDevice(); // Cierra la tarjeta de sonido
     // Cierra la ventana y libera los recursos
     CloseWindow();
 }
