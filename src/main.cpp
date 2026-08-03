@@ -21,13 +21,21 @@
 #define INITIAL_CAMERA_FOVY 45.0f                           // Amplitud del lente (el ángulo de apertura vertical)
 
 // Constantes del Entorno y Objetos
-#define GRID_SLICES 20                                           // Número de divisiones en la cuadrícula
-#define GRID_SPACING 1.0f                                        // Espaciado entre las divisiones de la cuadrícula
-#define CUBE_SIZE 1.0f                                           // Tamaño del cubo (Ancho, Alto, Largo)
-#define CUBE_POSITION (Vector3){0.0f, CUBE_SIZE / 2, 0.0f}       // Posición del cubo central en el mundo
+#define GRID_SLICES 20    // Número de divisiones en la cuadrícula
+#define GRID_SPACING 1.0f // Espaciado entre las divisiones de la cuadrícula
+
+// Juagor
+#define JUGADOR_SIZE 1.0f                                        // Tamaño del cubo (Ancho, Alto, Largo)
+#define JUGADOR_POSITION (Vector3){0.0f, JUGADOR_SIZE / 2, 0.0f} // Posición del cubo central en el mundo
+
+// Enemigo
 #define ENEMIGO_POSICION_INICIAL (Vector3){-10.0f, 0.6f, -10.0f} // Posicion del enemigo incial
-#define TIEMPO_VIDA_PROYECTIL 10.0f                              // Tiempo de vida del proyectil por defecto
-#define VELOCIDAD_PROYECTIL 5.0f                                 // Velocidad por defecto del proyectil
+#define TIEMPO_ENTRE_PROYECTILES 0.5f                            // Tiempo, en segundos, entre disparos del enemigo.
+
+// Proyectiles
+#define TIEMPO_VIDA_PROYECTIL 10.0f // Tiempo de vida del proyectil por defecto (Recomendado 10.0f)
+#define VELOCIDAD_PROYECTIL 25.0f   // Velocidad por defecto del proyectil por segundo. Recomendación: (10.0f a 50.0f)
+#define SIZE_BALA 0.25f             // Tamaño de la bala por defecto. (0.25f a 0.5f)
 
 // Constantes de la Interfaz (UI)
 #define TEXT_POS_X 10     // Posición X del texto en la pantalla
@@ -46,7 +54,7 @@ int main()
     // Define la cámara 3D con sus parámetros iniciales
     Camera3D camera = {0};
 
-    Jugador jugador1 = Jugador(5.0f, RED, 8.0f, CUBE_POSITION, CUBE_SIZE);
+    Jugador jugador1 = Jugador(5.0f, RED, 8.0f, JUGADOR_POSITION, JUGADOR_SIZE);
 
     // === CREACIÓN RÁPIDA DE LA COLECCIÓN DE MONEDAS ===
     std::vector<Moneda> monedas;
@@ -68,13 +76,13 @@ int main()
 
     int score = 0; // Puntuación, en nuestro caso número de monedas obtenidas.
 
-    Enemigo enemigo1(ENEMIGO_POSICION_INICIAL, 3.5f, 1.2f, PURPLE, 2.0f);
+    Enemigo enemigo1(ENEMIGO_POSICION_INICIAL, 3.5f, 1.2f, PURPLE, TIEMPO_ENTRE_PROYECTILES);
 
     float tiempoTranscurrido = 0.0f;
 
     bool juegoTerminado = false; // Flag para pausar si te atrapa
 
-    ZonaSegura zonaSegura1(CUBE_POSITION, CUBE_SIZE * 2);
+    ZonaSegura zonaSegura1(JUGADOR_POSITION, JUGADOR_SIZE * 2);
 
     // Establece el objetivo de fotogramas por segundo de la ventana
     SetTargetFPS(MAX_FPS);
@@ -170,15 +178,17 @@ int main()
         // Actualizar enemigo
         enemigo1.cazar(jugador1.getPosicion(), GetFrameTime());
 
-        enemigo1.disparar(enemigo1.getPosicion(), VELOCIDAD_PROYECTIL, 0.5f, jugador1.getPosicion(), TIEMPO_VIDA_PROYECTIL);
+        enemigo1.disparar(enemigo1.getPosicion(), VELOCIDAD_PROYECTIL, SIZE_BALA, jugador1.getPosicion(), TIEMPO_VIDA_PROYECTIL);
 
         for (Proyectil &proyectil : enemigo1.getListaProyectiles())
         {
             proyectil.actualizar();
 
-            // TODO: Eliminar esto
-            if (proyectil.getTiempoRestanteDeVida() < 0)
+            if (CheckCollisionBoxSphere(jugador1.getBoundingBox(),
+                                        proyectil.getPosicion(),
+                                        proyectil.getSize()))
             {
+                juegoTerminado = true;
             }
         }
 
@@ -276,7 +286,7 @@ void inicializarJuego(Camera3D &camera, Jugador &jugador1, std::vector<Moneda> &
     camera.projection = CAMERA_PERSPECTIVE; // Perspectiva real: objetos lejanos se ven más pequeños
 
     // Reinicializamos el jugador
-    jugador1.setPosicion(CUBE_POSITION);
+    jugador1.setPosicion(JUGADOR_POSITION);
     jugador1.setVelocidadY(0.0f);
 
     // Volvemos todas las monedas visibles
@@ -288,5 +298,5 @@ void inicializarJuego(Camera3D &camera, Jugador &jugador1, std::vector<Moneda> &
     // Reinicializamos la posición del Enemigo
     enemigo1.setPosicion(ENEMIGO_POSICION_INICIAL);
 
-    // TODO: Eliminar todas las balas -> Clase Enemigo enemigo1.eliminarTodosLosProyectiles(). .clear()
+    enemigo1.eliminarTodosLosProyectiles();
 }

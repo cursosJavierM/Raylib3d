@@ -12,6 +12,7 @@ private:
     float size;
     Vector3 objetivo;
     float tiempoRestanteDeVida;
+    Vector3 direccion;
 
 public:
     Proyectil(Vector3 posicionInicial, float velocidadInicial, float sizeInicial, Vector3 objetivoInicial, float tiempoRestanteVidaIncial);

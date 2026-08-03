@@ -3,7 +3,7 @@ CXX = g++
 TARGET = bin/game.exe
 SRC = src/*.cpp
 
-CXXFLAGS = -std=c++17 -Wall -g
+CXXFLAGS = -std=c++20 -Wall -g
 LDFLAGS = -lraylib -lopengl32 -lgdi32 -lwinmm
 
 # ===== RULES =====
