@@ -21,7 +21,7 @@
 #define INITIAL_CAMERA_FOVY 45.0f                           // Amplitud del lente (el ángulo de apertura vertical)
 
 // Constantes del Entorno y Objetos
-#define GRID_SLICES 20    // Número de divisiones en la cuadrícula
+#define GRID_SLICES 30    // Número de divisiones en la cuadrícula
 #define GRID_SPACING 1.0f // Espaciado entre las divisiones de la cuadrícula
 
 // Juagor
@@ -34,7 +34,7 @@
 
 // Proyectiles
 #define TIEMPO_VIDA_PROYECTIL 10.0f // Tiempo de vida del proyectil por defecto (Recomendado 10.0f)
-#define VELOCIDAD_PROYECTIL 25.0f   // Velocidad por defecto del proyectil por segundo. Recomendación: (10.0f a 50.0f)
+#define VELOCIDAD_PROYECTIL 20.0f   // Velocidad por defecto del proyectil por segundo. Recomendación: (10.0f a 50.0f)
 #define SIZE_BALA 0.25f             // Tamaño de la bala por defecto. (0.25f a 0.5f)
 
 // Constantes de la Interfaz (UI)
@@ -89,12 +89,15 @@ int main()
 
     Sound sonidoMoneda = LoadSound("resources/moneda.mp3");
 
-    // TODO: Añadir sonido de muerte.
-    /* Sound sonidoMuerte = LoadSound("resources/freesound_community-8-bit-explosion-low-resonant-45659.mp3"); */
+    // Musica de fondo
+    Music musicaFondo = LoadMusicStream("resources/nocopyrightsound633-arcade-beat-323176.mp3"); // Cargar el archivo de musica.
+    musicaFondo.looping = true;                                                                  // Repetir la musica de fondo
 
-    // TODO: Añadir musica de fondo.
-    /*  Music musicaFondo = LoadMusicStream("resources/nocopyrightsound633-arcade-beat-323176.mp3"); // Cargar el archivo de musica.
-     musicaFondo.looping = true;                                                                  // Repetir la musica de fondo */
+    // Sonido de muerte
+    Sound sonidoMuerte = LoadSound("resources/lesiakower-8-bit-game-over-sound-effect-331435.mp3");
+
+    // Sonido de salto
+    Sound sonidoSalto = LoadSound("resources/vadim_makes_sound-retro-arcade-item-pickup-554465.mp3");
 
     // Objetos del entorno
     float gravedad = -9.8f;
@@ -102,8 +105,8 @@ int main()
 
     inicializarJuego(camera, jugador1, monedas, enemigo1);
 
-    // TODO: Añadir musica de fondo.
-    /* PlayMusicStream(musicaFondo); // Incial la música. */
+    // Reproducir la musica de fondo
+    PlayMusicStream(musicaFondo);
 
     //  Bucle principal del juego
     while (!WindowShouldClose())
@@ -116,9 +119,8 @@ int main()
             inicializarJuego(camera, jugador1, monedas, enemigo1);
             score = 0;
             juegoTerminado = false;
-            // TODO: tiempoTranscurrido = 0.f;
-            // TODO: Hacer sonar la muerte del jugador.PlaySound(sonidoMuerte);
-            // TODO: SeekMusicStream(musicaFondo, 0.0f); // Reiniciar la música de fondo a 0.
+            tiempoTranscurrido = 0.0f;
+            SeekMusicStream(musicaFondo, 0.0f); // Reiniciar la música de fondo a 0.
         }
 
         // =========================================================================
@@ -153,14 +155,15 @@ int main()
         // Eje y
         if (IsKeyDown(KEY_SPACE))
         {
-            jugador1.saltar();
+            jugador1.saltar(sonidoSalto);
         }
 
         // =========================================================================
         // 2. SECCIÓN DE ACTUALIZACIÓN (Cálculos, físicas y lógica)
         // =========================================================================
 
-        // TODO: Añadir musica de fondo. UpdateMusicStream(musicaFondo);
+        // Continue con la muscia de fondo
+        UpdateMusicStream(musicaFondo);
 
         // Aplicamos físicas sobre la velocidad en el eje Y.
         if (nuevaPosicion.y > alturaSuelo || jugador1.getVelocidadY() > 0.0f)
@@ -205,6 +208,7 @@ int main()
                                         proyectil.getPosicion(),
                                         proyectil.getSize()))
             {
+                PlaySound(sonidoMuerte);
                 juegoTerminado = true;
             }
         }
@@ -222,6 +226,7 @@ int main()
         // Comprobar si el enemigo ha cochado con el jugador
         if (CheckCollisionBoxes(jugador1.getBoundingBox(), enemigo1.getBoundingBox()))
         {
+            PlaySound(sonidoMuerte);
             juegoTerminado = true;
         }
 
@@ -285,33 +290,29 @@ int main()
         // 2. Lo dibujamos en pantalla pasando el texto convertido con .c_str()
         DrawText(textoScore.c_str(), TEXT_POS_X, TEXT_POS_Y, TEXT_FONT_SIZE, DARKGRAY);
 
-        // TODO: Añadir tiempo a la IU del juego.
-        /* //  1. Calculamos los minutos y los segundos enteros
+        // Añadir tiempo a la IU del juego.
         int minutos = (int)tiempoTranscurrido / 60;
         int segundos = (int)tiempoTranscurrido % 60;
 
-        // 2. Creamos el texto formateado
-        // "%02i" fuerza a que el entero siempre tenga 2 dígitos, añadiendo un cero a la izquierda si es necesario
         const char *textoTiempo = TextFormat("%02i:%02i", minutos, segundos);
 
-        // 3. Calculamos la posición X para que quede perfectamente centrado
         int anchoTexto = MeasureText(textoTiempo, TEXT_FONT_SIZE);
         int posXCentrado = (GetScreenWidth() / 2) - (anchoTexto / 2);
 
-        // 4. Dibujamos en pantalla
-        DrawText(textoTiempo, posXCentrado, TEXT_POS_Y, TEXT_FONT_SIZE, DARKGRAY); */
+        // 4. Dibujamos en pantalla el tiempo
+        DrawText(textoTiempo, posXCentrado, TEXT_POS_Y, TEXT_FONT_SIZE, DARKGRAY);
 
         // Terminar de dibujar en la ventana
         EndDrawing();
     }
 
-    UnloadSound(sonidoMoneda); // Libera la memoria del archivo de audio
-
-    // TODO: Añadir musica de fondo. UnloadMusicStream(musicaFondo); // Liberar la memoria del archivo de musica.
+    UnloadSound(sonidoMoneda);      // Libera la memoria del archivo de audio
+    UnloadSound(sonidoMuerte);      // Libera la memoria del archivo de audio
+    UnloadMusicStream(musicaFondo); // Liberar la memoria del archivo de musica.
 
     CloseAudioDevice(); // Cierra la tarjeta de sonido
-    // Cierra la ventana y libera los recursos
-    CloseWindow();
+
+    CloseWindow(); // Cierra la ventana y libera los recursos
 }
 
 void inicializarJuego(Camera3D &camera, Jugador &jugador1, std::vector<Moneda> &monedas, Enemigo &enemigo1)

@@ -37,5 +37,5 @@ public:
 
     void setVelocidadY(float nuevaVelocidadY) { velocidadY = nuevaVelocidadY; }
 
-    void saltar();
+    void saltar(Sound sonidoSalto);
 };
